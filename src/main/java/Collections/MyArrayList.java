@@ -85,4 +85,57 @@ public class MyArrayList<T> implements Iterable<T> {
         return sb.toString();
     }
 
+    public void remove(int index){
+        if(index<0 || index>=size){
+            throw new IndexOutOfBoundsException();
+        }
+        for(int i=index;i< size()-1;i++){
+
+            elementData[i] = elementData[i+1];
+        }
+        elementData[--size] = null;
+    }
+
+    public void set(int index, T value){
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
+        elementData[index] = value;
+    }
+
+    public boolean contains(T element) {
+
+        if (element == null) {
+            for (int i = 0; i < size; i++) {
+                if (elementData[i] == null) {
+                    return true;
+                }
+            }
+        } else {
+            for (int i = 0; i < size; i++) {
+                if (element.equals(elementData[i])) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public void add(int index, T value) {
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
+        if (size == elementData.length) {
+            grow();
+        }
+
+        // shift right from end
+        for (int i = size; i > index; i--) {
+            elementData[i] = elementData[i - 1];
+        }
+        elementData[index] = value;
+        size++;
+    }
+
 }
